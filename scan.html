@@ -52,13 +52,18 @@ function mulaiScan() {
         },
         function(decodedText) {
 
-            document.getElementById("hasilBarcode").value = decodedText;
-localStorage.setItem("barcodeHasil", decodedText);
-            html5QrCode.stop().then(() => {
+    document.getElementById("hasilBarcode").value = decodedText;
 
-    window.location.href = "penjualan.html";
+    localStorage.setItem("barcodeHasil", decodedText);
 
-});
+    html5QrCode.stop().then(() => {
+
+        window.location.href = "penjualan.html";
+
+    }).catch(err => {
+        console.log(err);
+        window.location.href = "penjualan.html";
+    });
 
         },
         function(errorMessage) {
