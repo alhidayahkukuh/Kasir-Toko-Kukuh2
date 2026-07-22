@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Barang - Kasir Toko Kukuh</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-box">
+    <h2>📦 Data Barang</h2>
+
+    <input type="text" id="barcode" placeholder="Barcode">
+    <input type="text" id="nama" placeholder="Nama Barang">
+    <input type="number" id="hargaBeli" placeholder="Harga Beli">
+    <input type="number" id="hargaJual" placeholder="Harga Jual">
+    <input type="number" id="stok" placeholder="Stok">
+
+    <button onclick="simpanBarang()">💾 Simpan Barang</button>
+
+    <hr>
+
+    <h3>Daftar Barang</h3>
+    <div id="daftarBarang"></div>
+
+    <br>
+    <button onclick="window.location.href='dashboard.html'">
+        ← Kembali ke Dashboard
+    </button>
+</div>
+
+<script>
+let barang = JSON.parse(localStorage.getItem("barang")) || [];
+
+function simpanBarang() {
+
+    let data = {
+        barcode: document.getElementById("barcode").value,
+        nama: document.getElementById("nama").value,
+        hargaBeli: document.getElementById("hargaBeli").value,
+        hargaJual: document.getElementById("hargaJual").value,
+        stok: document.getElementById("stok").value
+    };
+
+    barang.push(data);
+
+    localStorage.setItem("barang", JSON.stringify(barang));
+
+    tampilkanBarang();
+
+    document.getElementById("barcode").value="";
+    document.getElementById("nama").value="";
+    document.getElementById("hargaBeli").value="";
+    document.getElementById("hargaJual").value="";
+    document.getElementById("stok").value="";
+}
+
+function tampilkanBarang(){
+
+    let html="";
+
+    barang.forEach((b,i)=>{
+
+        html += `
+        <div style="border:1px solid #ccc;padding:10px;margin:10px;border-radius:8px;">
+            <b>${b.nama}</b><br>
+            Barcode : ${b.barcode}<br>
+            Harga Jual : Rp ${b.hargaJual}<br>
+            Stok : ${b.stok}
+        </div>
+        `;
+
+    });
+
+    document.getElementById("daftarBarang").innerHTML=html;
+}
+
+tampilkanBarang();
+</script>
+
+</body>
+</html>
