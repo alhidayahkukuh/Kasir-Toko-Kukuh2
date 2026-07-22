@@ -28,8 +28,14 @@ if (localStorage.getItem("login") !== "true") {
     window.location.href = "index.html";
 }
 
-function menu(nama) {
-    alert("Menu " + nama + " sedang dalam tahap pengembangan.");
+function menu(nama){
+
+    if(nama=="barang"){
+        window.location.href="barang.html";
+    }else{
+        alert("Menu "+nama+" akan dibuat pada tahap berikutnya.");
+    }
+
 }
 
 function logout() {
