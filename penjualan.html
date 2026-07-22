@@ -127,7 +127,24 @@ function tampilkan() {
     document.getElementById("total").innerHTML = "Total : Rp " + total;
 }
 
-muatBarang();function hitungKembalian() {
+muatBarang();const barcodeScan = localStorage.getItem("barcodeHasil");
+
+if(barcodeScan){
+
+    const index = daftarBarang.findIndex(b => b.barcode === barcodeScan);
+
+    if(index !== -1){
+
+        select.value = index;
+
+        tambah();
+
+    }
+
+    localStorage.removeItem("barcodeHasil");
+
+        }
+    function hitungKembalian() {
 
     let total = 0;
 
