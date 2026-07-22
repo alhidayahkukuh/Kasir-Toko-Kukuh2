@@ -56,7 +56,7 @@ function mulaiScan() {
 localStorage.setItem("barcodeHasil", decodedText);
             html5QrCode.stop();
 
-            alert("Barcode berhasil dipindai!");
+            window.location.href = "penjualan.html";
 
         },
         function(errorMessage) {
