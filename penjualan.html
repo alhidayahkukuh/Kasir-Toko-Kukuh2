@@ -129,21 +129,23 @@ function tampilkan() {
 
 muatBarang();const barcodeScan = localStorage.getItem("barcodeHasil");
 
-if(barcodeScan){
+if (barcodeScan) {
 
-    const index = daftarBarang.findIndex(b => b.barcode === barcodeScan);
+    const index = daftarBarang.findIndex(b => String(b.barcode) === String(barcodeScan));
 
-    if(index !== -1){
+    if (index !== -1) {
 
         select.value = index;
-
         tambah();
+
+    } else {
+
+        alert("Barcode tidak ditemukan: " + barcodeScan);
 
     }
 
     localStorage.removeItem("barcodeHasil");
-
-        }
+}
     function hitungKembalian() {
 
     let total = 0;
