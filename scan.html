@@ -53,7 +53,7 @@ function mulaiScan() {
         function(decodedText) {
 
             document.getElementById("hasilBarcode").value = decodedText;
-
+localStorage.setItem("barcodeHasil", decodedText);
             html5QrCode.stop();
 
             alert("Barcode berhasil dipindai!");
