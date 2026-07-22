@@ -98,7 +98,53 @@ document.getElementById("keranjang").innerHTML=html;
 document.getElementById("total").innerHTML="Total : Rp "+total;
 
 }
+function hitungKembalian(){
 
+let total=0;
+
+keranjang.forEach(item=>{
+total+=item.harga*item.jumlah;
+});
+
+let bayar=parseInt(document.getElementById("bayar").value);
+
+if(isNaN(bayar)){
+alert("Masukkan jumlah pembayaran.");
+return;
+}
+
+if(bayar<total){
+alert("Uang pembayaran kurang.");
+return;
+}
+
+let kembali=bayar-total;
+
+document.getElementById("kembalian").innerHTML=
+"Kembalian : Rp "+kembali;
+
+}
+
+function selesaiTransaksi(){
+
+if(keranjang.length==0){
+alert("Belum ada barang.");
+return;
+}
+
+alert("Transaksi berhasil disimpan.");
+
+keranjang=[];
+
+document.getElementById("keranjang").innerHTML="";
+
+document.getElementById("total").innerHTML="Total : Rp 0";
+
+document.getElementById("kembalian").innerHTML="Kembalian : Rp 0";
+
+document.getElementById("bayar").value="";
+
+}
 </script>
 
 </body>
