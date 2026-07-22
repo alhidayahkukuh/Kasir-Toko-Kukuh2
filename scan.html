@@ -37,10 +37,32 @@ readonly>
 
 <script>
 
-function mulaiScan(){
+function mulaiScan() {
 
-alert("Fitur Scan Barcode akan kita aktifkan pada langkah berikutnya.");
+    document.querySelector(".login-box").innerHTML +=
+    '<div id="reader" style="width:300px;margin:auto;"></div>';
 
+    const html5QrCode = new Html5Qrcode("reader");
+
+    html5QrCode.start(
+        { facingMode: "environment" },
+        {
+            fps: 10,
+            qrbox: 250
+        },
+        function(decodedText) {
+
+            document.getElementById("hasilBarcode").value = decodedText;
+
+            html5QrCode.stop();
+
+            alert("Barcode berhasil dipindai!");
+
+        },
+        function(errorMessage) {
+            // Abaikan error saat proses scan
+        }
+    );
 }
 
 </script>
