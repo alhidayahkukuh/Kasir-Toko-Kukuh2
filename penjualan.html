@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penjualan - Kasir Toko Kukuh</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-box">
+<h2>🛒 Penjualan</h2>
+
+<label>Pilih Barang</label>
+<select id="barang"></select>
+
+<label>Jumlah</label>
+<input type="number" id="jumlah" value="1">
+
+<button onclick="tambah()">Tambah ke Keranjang</button>
+
+<hr>
+
+<h3>Keranjang</h3>
+
+<div id="keranjang"></div>
+
+<h2 id="total">Total : Rp 0</h2>
+
+<button onclick="window.location.href='dashboard.html'">
+← Dashboard
+</button>
+
+</div>
+
+<script>
+
+let daftarBarang = JSON.parse(localStorage.getItem("barang")) || [];
+let keranjang=[];
+
+let select=document.getElementById("barang");
+
+daftarBarang.forEach((b,i)=>{
+let option=document.createElement("option");
+option.value=i;
+option.text=b.nama+" - Rp "+b.hargaJual;
+select.add(option);
+});
+
+function tambah(){
+
+let index=select.value;
+
+let jumlah=parseInt(document.getElementById("jumlah").value);
+
+let barang=daftarBarang[index];
+
+keranjang.push({
+nama:barang.nama,
+harga:parseInt(barang.hargaJual),
+jumlah:jumlah
+});
+
+tampilkan();
+
+}
+
+function tampilkan(){
+
+let html="";
+let total=0;
+
+keranjang.forEach(item=>{
+
+let subtotal=item.harga*item.jumlah;
+
+total+=subtotal;
+
+html+=`
+<p>
+${item.nama}<br>
+${item.jumlah} x Rp ${item.harga}
+= Rp ${subtotal}
+</p>
+<hr>
+`;
+
+});
+
+document.getElementById("keranjang").innerHTML=html;
+
+document.getElementById("total").innerHTML="Total : Rp "+total;
+
+}
+
+</script>
+
+</body>
+</html>
