@@ -58,7 +58,7 @@ function mulaiScan() {
 
     html5QrCode.stop().then(() => {
 
-        window.location.href = "penjualan.html";
+        window.location.replace("penjualan.html");
 
     }).catch(err => {
         console.log(err);
