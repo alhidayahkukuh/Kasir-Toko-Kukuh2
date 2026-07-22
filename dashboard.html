@@ -30,11 +30,15 @@ if (localStorage.getItem("login") !== "true") {
 
 function menu(nama){
 
-    if(nama=="barang"){
-        window.location.href="barang.html";
-    }else{
-        alert("Menu "+nama+" akan dibuat pada tahap berikutnya.");
-    }
+if(nama=="barang"){
+window.location.href="barang.html";
+}
+else if(nama=="penjualan"){
+window.location.href="penjualan.html";
+}
+else{
+alert("Menu "+nama+" segera dibuat.");
+}
 
 }
 
