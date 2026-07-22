@@ -9,21 +9,35 @@
 <body>
 
 <div class="login-box">
+
 <h2>🛒 Penjualan</h2>
 
 <label>Pilih Barang</label>
 <select id="barang"></select>
 
 <label>Jumlah</label>
-<input type="number" id="jumlah" value="1">
+<input type="number" id="jumlah" value="1" min="1">
 
-<button onclick="tambah()">Tambah ke Keranjang</button>
+<button onclick="tambah()">➕ Tambah ke Keranjang</button>
+
+<hr>
+
+<h3>Keranjang Belanja</h3>
+
+<div id="keranjang"></div>
+
+<h2 id="total">
+Total : Rp 0
+</h2>
 
 <hr>
 
 <h3>Pembayaran</h3>
 
-<input type="number" id="bayar" placeholder="Jumlah Uang Dibayar">
+<input
+type="number"
+id="bayar"
+placeholder="Masukkan jumlah pembayaran">
 
 <button onclick="hitungKembalian()">
 💵 Hitung Kembalian
@@ -37,83 +51,94 @@ Kembalian : Rp 0
 ✅ Selesaikan Transaksi
 </button>
 
+<br><br>
+
+<button onclick="window.location='dashboard.html'">
+⬅ Kembali ke Dashboard
+</button>
+
 </div>
 
-<script>
+<script>let daftarBarang = JSON.parse(localStorage.getItem("barang")) || [];
+let keranjang = [];
 
-let daftarBarang = JSON.parse(localStorage.getItem("barang")) || [];
-let keranjang=[];
+const select = document.getElementById("barang");
 
-let select=document.getElementById("barang");
+function muatBarang() {
+    select.innerHTML = "";
 
-daftarBarang.forEach((b,i)=>{
-let option=document.createElement("option");
-option.value=i;
-option.text=b.nama+" - Rp "+b.hargaJual;
-select.add(option);
-});
+    if (daftarBarang.length === 0) {
+        let option = document.createElement("option");
+        option.text = "-- Belum ada barang --";
+        option.value = "";
+        select.add(option);
+        return;
+    }
 
-function tambah(){
-
-let index=select.value;
-
-let jumlah=parseInt(document.getElementById("jumlah").value);
-
-let barang=daftarBarang[index];
-
-keranjang.push({
-nama:barang.nama,
-harga:parseInt(barang.hargaJual),
-jumlah:jumlah
-});
-
-tampilkan();
-
+    daftarBarang.forEach((b, i) => {
+        let option = document.createElement("option");
+        option.value = i;
+        option.text = b.nama + " - Rp " + b.hargaJual;
+        select.add(option);
+    });
 }
 
-function tampilkan(){
+function tambah() {
 
-let html="";
-let total=0;
+    if (daftarBarang.length === 0) {
+        alert("Belum ada data barang.");
+        return;
+    }
 
-keranjang.forEach(item=>{
+    const index = Number(select.value);
+    const jumlah = Number(document.getElementById("jumlah").value);
 
-let subtotal=item.harga*item.jumlah;
+    const barang = daftarBarang[index];
 
-total+=subtotal;
+    keranjang.push({
+        nama: barang.nama,
+        harga: Number(barang.hargaJual),
+        jumlah: jumlah
+    });
 
-html+=`
-<p>
-${item.nama}<br>
-${item.jumlah} x Rp ${item.harga}
-= Rp ${subtotal}
-</p>
-<hr>
-`;
-
-});
-
-document.getElementById("keranjang").innerHTML=html;
-
-document.getElementById("total").innerHTML="Total : Rp "+total;
-
+    tampilkan();
 }
-function hitungKembalian() {
+
+function tampilkan() {
+
+    let html = "";
     let total = 0;
 
     keranjang.forEach(item => {
-        total += Number(item.harga) * Number(item.jumlah);
+
+        const subtotal = item.harga * item.jumlah;
+        total += subtotal;
+
+        html += `
+        <div style="border:1px solid #ddd;padding:8px;margin:8px 0;border-radius:8px;">
+            <b>${item.nama}</b><br>
+            ${item.jumlah} × Rp ${item.harga}<br>
+            <b>Subtotal : Rp ${subtotal}</b>
+        </div>
+        `;
+    });
+
+    document.getElementById("keranjang").innerHTML = html;
+    document.getElementById("total").innerHTML = "Total : Rp " + total;
+}
+
+muatBarang();function hitungKembalian() {
+
+    let total = 0;
+
+    keranjang.forEach(item => {
+        total += item.harga * item.jumlah;
     });
 
     const bayar = Number(document.getElementById("bayar").value);
 
-    if (bayar <= 0) {
-        alert("Masukkan jumlah pembayaran.");
-        return;
-    }
-
     if (bayar < total) {
-        alert("Uang pembayaran kurang.");
+        alert("Uang pembayaran kurang!");
         return;
     }
 
@@ -123,25 +148,22 @@ function hitungKembalian() {
         "Kembalian : Rp " + kembali;
 }
 
-function selesaiTransaksi(){
+function selesaiTransaksi() {
 
-if(keranjang.length==0){
-alert("Belum ada barang.");
-return;
-}
+    if (keranjang.length === 0) {
+        alert("Keranjang masih kosong!");
+        return;
+    }
 
-alert("Transaksi berhasil disimpan.");
+    alert("Transaksi berhasil disimpan.");
 
-keranjang=[];
+    keranjang = [];
 
-document.getElementById("keranjang").innerHTML="";
-
-document.getElementById("total").innerHTML="Total : Rp 0";
-
-document.getElementById("kembalian").innerHTML="Kembalian : Rp 0";
-
-document.getElementById("bayar").value="";
-
+    document.getElementById("keranjang").innerHTML = "";
+    document.getElementById("total").innerHTML = "Total : Rp 0";
+    document.getElementById("kembalian").innerHTML = "Kembalian : Rp 0";
+    document.getElementById("bayar").value = "";
+    document.getElementById("jumlah").value = "1";
 }
 </script>
 
