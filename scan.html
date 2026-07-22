@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Barcode - Kasir Toko Kukuh</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>📷 Scan Barcode</h2>
+
+<p>Tekan tombol di bawah untuk mulai memindai barcode.</p>
+
+<button onclick="mulaiScan()">
+Mulai Scan
+</button>
+
+<h3>Hasil Scan</h3>
+
+<input
+type="text"
+id="hasilBarcode"
+placeholder="Barcode akan muncul di sini"
+readonly>
+
+<br><br>
+
+<button onclick="window.location.href='dashboard.html'">
+⬅ Kembali ke Dashboard
+</button>
+
+</div>
+
+<script>
+
+function mulaiScan(){
+
+alert("Fitur Scan Barcode akan kita aktifkan pada langkah berikutnya.");
+
+}
+
+</script>
+
+</body>
+</html>
