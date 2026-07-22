@@ -21,14 +21,20 @@
 
 <hr>
 
-<h3>Keranjang</h3>
+<h3>Pembayaran</h3>
 
-<div id="keranjang"></div>
+<input type="number" id="bayar" placeholder="Jumlah Uang Dibayar">
 
-<h2 id="total">Total : Rp 0</h2>
+<button onclick="hitungKembalian()">
+💵 Hitung Kembalian
+</button>
 
-<button onclick="window.location.href='dashboard.html'">
-← Dashboard
+<h2 id="kembalian">
+Kembalian : Rp 0
+</h2>
+
+<button onclick="selesaiTransaksi()">
+✅ Selesaikan Transaksi
 </button>
 
 </div>
