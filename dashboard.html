@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Kasir Toko Kukuh</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-box">
+    <h1>🏪 Kasir Toko Kukuh</h1>
+    <h3>Dashboard</h3>
+
+    <button onclick="menu('penjualan')">🛒 Penjualan</button>
+    <button onclick="menu('barang')">📦 Data Barang</button>
+    <button onclick="menu('barcode')">📷 Scan Barcode</button>
+    <button onclick="menu('laporan')">📊 Laporan</button>
+    <button onclick="menu('pengaturan')">⚙️ Pengaturan</button>
+
+    <br><br>
+
+    <button onclick="logout()">🚪 Keluar</button>
+</div>
+
+<script>
+if (localStorage.getItem("login") !== "true") {
+    window.location.href = "index.html";
+}
+
+function menu(nama) {
+    alert("Menu " + nama + " sedang dalam tahap pengembangan.");
+}
+
+function logout() {
+    localStorage.removeItem("login");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
